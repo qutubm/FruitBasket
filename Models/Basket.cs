@@ -13,8 +13,16 @@ public class Basket
     {
         _timeProvider = timeProvider;
 
+        var christmasStart = (Month: 12, Day: 20);
+        var christmasEnd = (Month: 12, Day: 31);
+        
         _strategies = new IPricingStrategy[]
         {
+            new SeasonalDiscountDecorator(new PerKgWeekendPricingStrategy(),   15, christmasStart, christmasEnd),
+            new SeasonalDiscountDecorator(new PerItemWeekendPricingStrategy(), 15, christmasStart, christmasEnd),
+            new SeasonalDiscountDecorator(new PerKgPricingStrategy(),          15, christmasStart, christmasEnd),
+            new SeasonalDiscountDecorator(new PerItemPricingStrategy(),        15, christmasStart, christmasEnd),
+
             new PerKgWeekendPricingStrategy(), 
             new PerItemWeekendPricingStrategy(),
             new PerKgPricingStrategy(),
